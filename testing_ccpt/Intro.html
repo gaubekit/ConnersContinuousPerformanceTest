@@ -1,14 +1,14 @@
-{{ block title }}Conners CPT – Einführung{{ endblock }}
+{{ block title }}Conners CPT – Introduction{{ endblock }}
 {{ block content }}
 
 <p>
-  Es erscheint ein Buchstabe. Drücke die <b>Leertaste</b>,
-  außer wenn es ein <b>{{ C.NO_GO_LETTER }}</b> ist.
+  A letter will appear. Press the <b>Space</b> key,
+  unless it is a <b>{{ C.NO_GO_LETTER }}</b>.
 </p>
 
-<p>Stimulusdauer: {{ C.STIM_DURATION_MS }} ms<br>
-Onset–Onset: {{ C.ISI_RANGE_MS.0 }}–{{ C.ISI_RANGE_MS.1 }} ms<br>
-Gesamt: {{ C.N_TRIALS }} Trials</p>
+<p>Stimulus duration: {{ C.STIM_DURATION_MS }} ms<br>
+Onset–onset interval: {{ C.ISI_RANGE_MS.0 }}–{{ C.ISI_RANGE_MS.1 }} ms<br>
+Total: {{ C.N_TRIALS }} trials</p>
 
 {{ next_button }}
 
