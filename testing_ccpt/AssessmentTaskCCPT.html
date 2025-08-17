@@ -5,6 +5,16 @@
   body {
     margin: 0;
     background-color: #ffffff;
+    font-family: sans-serif;
+  }
+
+  .my-box {
+    border: 1px solid #ccc;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
   }
 
   #screen {
@@ -12,32 +22,32 @@
     font-weight: bold;
     text-align: center;
 
-    /* Vollbild-Zentrierung */
-    height: 100vh;
-    width: 100vw;
+    /* innerhalb der Box zentrieren */
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 
+    height: 300px;             /* Höhe innerhalb der Box */
+    margin-bottom: 20px;
     user-select: none;
   }
 
   .instruction {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
-    text-align: center;
     font-size: 22px;
     color: #444;
+    margin-top: 20px;
   }
 </style>
 
-<div id="screen"></div>
-<div class="instruction">
-  Drücke die <b>Leertaste</b> bei jedem Buchstaben – <b>nicht</b> bei „{{ C.NO_GO_LETTER }}“.
-</div>
+<div class="my-box">
+  <div id="screen"></div>
 
-<input type="hidden" name="results_json" id="results_json">
+  <div class="instruction">
+    Drücke die <b>Leertaste</b> bei jedem Buchstaben – <b>nicht</b> bei „{{ C.NO_GO_LETTER }}“.
+  </div>
+
+  <input type="hidden" name="results_json" id="results_json">
+</div>
 
 <script>
   const STIM_MS = {{ STIM_DURATION_MS|json }};
