@@ -1,0 +1,15 @@
+{{ block title }}Conners CPT – Einführung{{ endblock }}
+{{ block content }}
+
+<p>
+  Es erscheint ein Buchstabe. Drücke die <b>Leertaste</b>,
+  außer wenn es ein <b>{{ C.NO_GO_LETTER }}</b> ist.
+</p>
+
+<p>Stimulusdauer: {{ C.STIM_DURATION_MS }} ms<br>
+Onset–Onset: {{ C.ISI_RANGE_MS.0 }}–{{ C.ISI_RANGE_MS.1 }} ms<br>
+Gesamt: {{ C.N_TRIALS }} Trials</p>
+
+{{ next_button }}
+
+{{ endblock }}

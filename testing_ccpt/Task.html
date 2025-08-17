@@ -1,0 +1,73 @@
+{{ block title }}Conners CPT – Aufgabe{{ endblock }}
+{{ block content }}
+
+<div id="screen" class="stimulus"></div>
+<input type="hidden" name="results_json" id="results_json">
+
+<script>
+  const STIM_MS = {{ STIM_DURATION_MS|json }};
+  const RESPONSE_KEY = {{ RESPONSE_KEY|json }};
+  const TRIALS = {{ TRIALS|json }};
+
+  const screen = document.getElementById('screen');
+  const results = [];
+  let trialIndex = 0;
+  let awaitingResponse = false;
+  let trialStart = 0;
+  let responseCaptured = false;
+
+  function now(){ return performance.now(); }
+
+  function showStim(letter){
+    screen.textContent = letter;
+  }
+
+  function runTrial(){
+    if(trialIndex >= TRIALS.length){
+      finishTask();
+      return;
+    }
+    const tr = TRIALS[trialIndex];
+    responseCaptured = false;
+    awaitingResponse = true;
+    showStim(tr.letter);
+    trialStart = now();
+
+    setTimeout(()=>{
+      screen.textContent = '';
+      awaitingResponse = false;
+      if(!responseCaptured){
+        results.push({
+          letter: tr.letter, is_no_go: tr.is_no_go,
+          isi_ms: tr.isi_ms, responded: false
+        });
+      }
+      setTimeout(()=>{
+        trialIndex += 1;
+        runTrial();
+      }, tr.isi_ms - STIM_MS);
+    }, STIM_MS);
+  }
+
+  window.addEventListener('keydown', ev=>{
+    if(awaitingResponse && !responseCaptured && ev.key === RESPONSE_KEY){
+      responseCaptured = true;
+      const rt = now() - trialStart;
+      const tr = TRIALS[trialIndex];
+      results.push({
+        letter: tr.letter, is_no_go: tr.is_no_go,
+        isi_ms: tr.isi_ms, responded: true,
+        rt_ms: Math.round(rt)
+      });
+    }
+  });
+
+  function finishTask(){
+    document.getElementById('results_json').value = JSON.stringify(results);
+    document.querySelector('form').submit();
+  }
+
+  setTimeout(runTrial, 1000);
+</script>
+
+{{ endblock }}

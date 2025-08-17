@@ -1,0 +1,10 @@
+{{ block title }}Ergebnisse{{ endblock }}
+{{ block content }}
+<ul>
+  <li>Hits: {{ player.hits }}</li>
+  <li>Omissions: {{ player.omissions }}</li>
+  <li>Commissions: {{ player.commissions }}</li>
+  <li>RT Mittelwert: {{ player.mean_rt_ms }} ms</li>
+  <li>RT SD: {{ player.sd_rt_ms }} ms</li>
+</ul>
+{{ endblock }}
